@@ -4,15 +4,15 @@
 
 variable "location" {
   type    = string
-  default = "eastus"
+  default = "australiaeast"
 }
 
 variable "naming_prefix" {
   type    = string
-  default = "adolabs"
+  default = "terraformtest"
 }
 
 variable "github_repository" {
   type    = string
-  default = "ado-labs-github-actions"
+  default = "ado-labs-github"
 }
