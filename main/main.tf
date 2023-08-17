@@ -38,6 +38,7 @@ resource "azurerm_virtual_network" "vnet" {
   address_space       = ["10.21.21.0/24"]  # Set your desired address space
   location            = azurerm_resource_group.vnetRG.location
   resource_group_name = azurerm_resource_group.vnetRG.name
+  tags                = ""
 }
 
 
@@ -45,12 +46,12 @@ resource "azurerm_subnet" "subnet1" {
   name                 = "subnet1"
   resource_group_name = azurerm_resource_group.vnetRG.name
   virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = ["10.21.22.0/24"]  # Set your desired subnet address range
+  address_prefixes     = ["10.21.21.1/24"]  # Set your desired subnet address range
 }
 
 resource "azurerm_subnet" "subnet2" {
   name                 = "subnet2"
   resource_group_name = azurerm_resource_group.vnetRG.name
   virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = ["10.21.23.0/24"]  # Set your desired subnet address range
+  address_prefixes     = ["10.21.21.2/24"]  # Set your desired subnet address range
 }
