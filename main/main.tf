@@ -12,7 +12,6 @@ resource "random_integer" "name_suffix" {
 
 # RESOURCE GROUP #
 
-
 resource "azurerm_resource_group" "vnet" {
   name     = local.resource_group_name
   location = var.location
