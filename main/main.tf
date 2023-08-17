@@ -38,7 +38,9 @@ resource "azurerm_virtual_network" "vnet" {
   address_space       = ["10.21.21.0/24"]  # Set your desired address space
   location            = azurerm_resource_group.vnetRG.location
   resource_group_name = azurerm_resource_group.vnetRG.name
-  tags                = ["peter.colley"]
+  tags = {
+    owner = "peter.colley"
+  }
 }
 
 
