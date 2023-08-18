@@ -102,10 +102,7 @@ resource "azurerm_public_ip" "azlb" {
   location                = azurerm_resource_group.vnetrg.location
   name                    = local.pip_name
   resource_group_name     = azurerm_resource_group.vnetrg.name
-  ddos_protection_mode    = var.pip_ddos_protection_mode
-  ddos_protection_plan_id = var.pip_ddos_protection_plan_id
   domain_name_label       = var.pip_domain_name_label
-  edge_zone               = var.edge_zone
   idle_timeout_in_minutes = var.pip_idle_timeout_in_minutes
   ip_tags                 = var.pip_ip_tags
   ip_version              = var.pip_ip_version
@@ -120,7 +117,6 @@ resource "azurerm_lb" "lb1" {
   location            = azurerm_resource_group.vnetrg.location
   resource_group_name = azurerm_resource_group.vnetrg.name
   name                = local.lb_name
-  edge_zone           = var.lb_edge_zone
   sku                 = var.lb_sku
   sku_tier            = var.lb_sku_tier
 
@@ -152,19 +148,19 @@ resource "azurerm_lb" "lb1" {
 
 # PALO ALTO PAN-OS
 
-resource "azurerm_palo_alto_next_generation_firewall_virtual_network_panorama" "panos1" {
-  name                    = "TestPanosFirewall"
-  resource_group_name     = azurerm_resource_group.vnetrg.name
-  location                = azurerm_resource_group.vnetrg.location
-  panorama_base64_config  = "e2RnbmFtZTogY25nZnctYXotZXhhbXBsZSwgdHBsbmFtZTogY25nZnctZXhhbXBsZS10ZW1wbGF0ZS1zdGFjaywgZXhhbXBsZS1wYW5vcmFtYS1zZXJ2ZXI6IDE5Mi4xNjguMC4xLCB2bS1hdXRoLWtleTogMDAwMDAwMDAwMDAwMDAwLCBleHBpcnk6IDIwMjQvMDcvMzF9Cg=="
+# resource "azurerm_palo_alto_next_generation_firewall_virtual_network_panorama" "panos1" {
+#   name                    = "TestPanosFirewall"
+#   resource_group_name     = azurerm_resource_group.vnetrg.name
+#   location                = azurerm_resource_group.vnetrg.location
+#   panorama_base64_config  = "e2RnbmFtZTogY25nZnctYXotZXhhbXBsZSwgdHBsbmFtZTogY25nZnctZXhhbXBsZS10ZW1wbGF0ZS1zdGFjaywgZXhhbXBsZS1wYW5vcmFtYS1zZXJ2ZXI6IDE5Mi4xNjguMC4xLCB2bS1hdXRoLWtleTogMDAwMDAwMDAwMDAwMDAwLCBleHBpcnk6IDIwMjQvMDcvMzF9Cg=="
 
-  network_profile {
-    public_ip_address_ids = [azurerm_public_ip.example.id]
+#   network_profile {
+#     public_ip_address_ids = [azurerm_public_ip.example.id]
 
-    vnet_configuration {
-      virtual_network_id  = azurerm_virtual_network.vnet.id
-      trusted_subnet_id   = azurerm_subnet.subnet1.id
-      untrusted_subnet_id = azurerm_subnet.subnet2.id
-    }
-  }
-}
+#     vnet_configuration {
+#       virtual_network_id  = azurerm_virtual_network.vnet.id
+#       trusted_subnet_id   = azurerm_subnet.subnet1.id
+#       untrusted_subnet_id = azurerm_subnet.subnet2.id
+#     }
+#   }
+# }

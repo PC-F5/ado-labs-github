@@ -40,18 +40,6 @@ variable "allocation_method" {
   description = "(Required) Defines how an IP address is assigned. Options are Static or Dynamic."
 }
 
-variable "pip_ddos_protection_mode" {
-  type        = string
-  default     = "VirtualNetworkInherited"
-  description = "(Optional) The DDoS protection mode of the public IP. Possible values are `Disabled`, `Enabled`, and `VirtualNetworkInherited`. Defaults to `VirtualNetworkInherited`."
-}
-
-variable "pip_ddos_protection_plan_id" {
-  type        = string
-  default     = null
-  description = "(Optional) The ID of DDoS protection plan associated with the public IP. `ddos_protection_plan_id` can only be set when `ddos_protection_mode` is `Enabled`."
-}
-
 variable "pip_domain_name_label" {
   type        = string
   default     = null
@@ -110,14 +98,6 @@ variable "pip_zones" {
   type        = list(string)
   default     = null
   description = "(Optional) A collection containing the availability zone to allocate the Public IP in. Changing this forces a new resource to be created. Availability Zones are only supported with a [Standard SKU](https://docs.microsoft.com/azure/virtual-network/virtual-network-ip-addresses-overview-arm#standard) and [in select regions](https://docs.microsoft.com/azure/availability-zones/az-overview) at this time. Standard SKU Public IP Addresses that do not specify a zone are **not** zone-redundant by default."
-}
-
-
-# LOAD BALANCER
-variable "edge_zone" {
-  type        = string
-  default     = null
-  description = "(Optional) Specifies the Edge Zone within the Azure Region where this Public IP and Load Balancer should exist. Changing this forces new resources to be created."
 }
 
 variable "lb_sku" {
