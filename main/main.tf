@@ -110,7 +110,7 @@ resource "azurerm_public_ip" "azlb" {
   reverse_fqdn            = var.pip_reverse_fqdn
   sku                     = var.pip_sku
   sku_tier                = var.pip_sku_tier
-  availability_zone       = var.pip_zones
+  availability_zone       = var.pip_availability_zone
 }
 
 resource "azurerm_lb" "lb1" {
