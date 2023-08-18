@@ -24,8 +24,8 @@ resource "azurerm_resource_group" "vnetRG" {
 
 resource "azurerm_network_security_group" "nsg1" {
   name                = "TestSecurityGroup1"
-  location            = azurerm_resource_group.vnetrg.location
-  resource_group_name = azurerm_resource_group.vnetrg.name
+  location            = azurerm_resource_group.vnetRG.location
+  resource_group_name = azurerm_resource_group.vnetRG.name
 
   # security_rule {
   #   name                       = "test123"
@@ -49,8 +49,8 @@ resource "azurerm_network_security_group" "nsg1" {
 
 resource "azurerm_route_table" "rt1" {
   name                          = "TestRouteTable"
-  location                      = azurerm_resource_group.vnetrg.location
-  resource_group_name           = azurerm_resource_group.vnetrg.name
+  location                      = azurerm_resource_group.vnetRG.location
+  resource_group_name           = azurerm_resource_group.vnetRG.name
   disable_bgp_route_propagation = false
 
   # route {
@@ -70,8 +70,8 @@ resource "azurerm_route_table" "rt1" {
 resource "azurerm_virtual_network" "vnet" {
   name                = "TestVnet"
   address_space       = ["10.21.21.0/24"]  # Set your desired address space
-  location            = azurerm_resource_group.vnetrg.location
-  resource_group_name = azurerm_resource_group.vnetrg.name
+  location            = azurerm_resource_group.vnetRG.location
+  resource_group_name = azurerm_resource_group.vnetRG.name
   tags = {
     owner = "peter.colley"
   }
@@ -99,9 +99,9 @@ resource "azurerm_virtual_network" "vnet" {
 
 resource "azurerm_public_ip" "azlb" {
   allocation_method       = var.allocation_method
-  location                = azurerm_resource_group.vnetrg.location
+  location                = azurerm_resource_group.vnetRG.location
   name                    = local.pip_name
-  resource_group_name     = azurerm_resource_group.vnetrg.name
+  resource_group_name     = azurerm_resource_group.vnetRG.name
   domain_name_label       = var.pip_domain_name_label
   idle_timeout_in_minutes = var.pip_idle_timeout_in_minutes
   ip_tags                 = var.pip_ip_tags
@@ -114,8 +114,8 @@ resource "azurerm_public_ip" "azlb" {
 }
 
 resource "azurerm_lb" "lb1" {
-  location            = azurerm_resource_group.vnetrg.location
-  resource_group_name = azurerm_resource_group.vnetrg.name
+  location            = azurerm_resource_group.vnetRG.location
+  resource_group_name = azurerm_resource_group.vnetRG.name
   name                = local.lb_name
   sku                 = var.lb_sku
   sku_tier            = var.lb_sku_tier
