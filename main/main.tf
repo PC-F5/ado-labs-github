@@ -1,3 +1,18 @@
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "=3.70.0"
+    }
+  }
+}
+
+# Configure the Microsoft Azure Provider
+provider "azurerm" {
+  skip_provider_registration = true # This is only required when the User, Service Principal, or Identity running Terraform lacks the permissions to register Azure Resource Providers.
+  features {}
+}
+
 locals {
   resource_group_name         = "${var.naming_prefix}-${random_integer.name_suffix.result}"
   network_security_group_name = "${var.naming_prefix}-${random_integer.name_suffix.result}"
@@ -144,23 +159,21 @@ resource "azurerm_lb" "lb1" {
 
 
 
-
-
 # PALO ALTO PAN-OS
 
-# resource "azurerm_palo_alto_next_generation_firewall_virtual_network_panorama" "panos1" {
-#   name                    = "TestPanosFirewall"
-#   resource_group_name     = azurerm_resource_group.vnetrg.name
-#   location                = azurerm_resource_group.vnetrg.location
-#   panorama_base64_config  = "e2RnbmFtZTogY25nZnctYXotZXhhbXBsZSwgdHBsbmFtZTogY25nZnctZXhhbXBsZS10ZW1wbGF0ZS1zdGFjaywgZXhhbXBsZS1wYW5vcmFtYS1zZXJ2ZXI6IDE5Mi4xNjguMC4xLCB2bS1hdXRoLWtleTogMDAwMDAwMDAwMDAwMDAwLCBleHBpcnk6IDIwMjQvMDcvMzF9Cg=="
+resource "azurerm_palo_alto_next_generation_firewall_virtual_network_panorama" "panos1" {
+  name                    = "TestPanosFirewall"
+  resource_group_name     = azurerm_resource_group.vnetrg.name
+  location                = azurerm_resource_group.vnetrg.location
+  panorama_base64_config  = "e2RnbmFtZTogY25nZnctYXotZXhhbXBsZSwgdHBsbmFtZTogY25nZnctZXhhbXBsZS10ZW1wbGF0ZS1zdGFjaywgZXhhbXBsZS1wYW5vcmFtYS1zZXJ2ZXI6IDE5Mi4xNjguMC4xLCB2bS1hdXRoLWtleTogMDAwMDAwMDAwMDAwMDAwLCBleHBpcnk6IDIwMjQvMDcvMzF9Cg=="
 
-#   network_profile {
-#     public_ip_address_ids = [azurerm_public_ip.example.id]
+  network_profile {
+    public_ip_address_ids = [azurerm_public_ip.example.id]
 
-#     vnet_configuration {
-#       virtual_network_id  = azurerm_virtual_network.vnet.id
-#       trusted_subnet_id   = azurerm_subnet.subnet1.id
-#       untrusted_subnet_id = azurerm_subnet.subnet2.id
-#     }
-#   }
-# }
+    vnet_configuration {
+      virtual_network_id  = azurerm_virtual_network.vnet.id
+      trusted_subnet_id   = azurerm_subnet.subnet1.id
+      untrusted_subnet_id = azurerm_subnet.subnet2.id
+    }
+  }
+}
