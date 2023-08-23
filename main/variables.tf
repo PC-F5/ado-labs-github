@@ -154,3 +154,15 @@ variable "frontend_private_ip_address_version" {
   default     = null
   description = "(Optional) The version of IP that the Private IP Address is. Possible values are `IPv4` or `IPv6`."
 }
+
+variable "frontend_subnet_id" {
+  type        = string
+  default     = ""
+  description = "(Optional) Frontend subnet id to use when in private mode"
+}
+
+variable "frontend_subnet_name" {
+  type        = string
+  default     = ""
+  description = "(Optional) Frontend virtual network name to use when in private mode. Conflict with `frontend_subnet_id`."
+}
