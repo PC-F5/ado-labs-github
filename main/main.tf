@@ -75,7 +75,7 @@ resource "azurerm_route_table" "rt1" {
 
 resource "azurerm_virtual_network" "vnet" {
   name                = "TestVnet"
-  address_space       = ["10.21.21.0/24"]  # Set your desired address space
+  address_space       = ["99.0.0.0/16"]  # Set your desired address space
   location            = azurerm_resource_group.vnetRG.location
   resource_group_name = azurerm_resource_group.vnetRG.name
   tags = {
@@ -86,24 +86,24 @@ resource "azurerm_virtual_network" "vnet" {
 
 # SUBNETS #
 
-# resource "azurerm_subnet" "subnet1" {
-#   name                  = "subnet1"
-#   resource_group_name   = azurerm_resource_group.vnetrg.name
-#   virtual_network_name  = azurerm_virtual_network.vnet.name
-#   address_prefixes      = ["10.21.22.0/24"]  # Set your desired subnet address range
-# }
+resource "azurerm_subnet" "subnet1" {
+  name                  = "subnet1"
+  resource_group_name   = azurerm_resource_group.vnetRG.name
+  virtual_network_name  = azurerm_virtual_network.vnet.name
+  address_prefixes      = ["99.0.1.0/24"]  # Set your desired subnet address range
+}
 
-# resource "azurerm_subnet" "subnet2" {
-#   name                  = "subnet2"
-#   resource_group_name   = azurerm_resource_group.vnetrg.name
-#   virtual_network_name  = azurerm_virtual_network.vnet.name
-#   address_prefixes      = ["10.21.23.0/24"]  # Set your desired subnet address range
-# }
+resource "azurerm_subnet" "subnet2" {
+  name                  = "subnet2"
+  resource_group_name   = azurerm_resource_group.vnetRG.name
+  virtual_network_name  = azurerm_virtual_network.vnet.name
+  address_prefixes      = ["99.0.2.0/24"]  # Set your desired subnet address range
+}
 
 
 # LOAD BALANCER
 
-resource "azurerm_public_ip" "azlb" {
+resource "azurerm_public_ip" "azpip" {
   allocation_method       = var.allocation_method
   location                = azurerm_resource_group.vnetRG.location
   name                    = local.pip_name
@@ -158,13 +158,13 @@ resource "azurerm_palo_alto_next_generation_firewall_virtual_network_panorama" "
   location                = azurerm_resource_group.vnetRG.location
   panorama_base64_config  = "e2RnbmFtZTogY25nZnctYXotZXhhbXBsZSwgdHBsbmFtZTogY25nZnctZXhhbXBsZS10ZW1wbGF0ZS1zdGFjaywgZXhhbXBsZS1wYW5vcmFtYS1zZXJ2ZXI6IDE5Mi4xNjguMC4xLCB2bS1hdXRoLWtleTogMDAwMDAwMDAwMDAwMDAwLCBleHBpcnk6IDIwMjQvMDcvMzF9Cg=="
 
-  # network_profile {
-  #   public_ip_address_ids = [azurerm_public_ip.azlb.id]
+  network_profile {
+    public_ip_address_ids = [azurerm_public_ip.azpip.id]
 
-  #   vnet_configuration {
-  #     virtual_network_id  = azurerm_virtual_network.vnet.id
-  #     # trusted_subnet_id   = azurerm_subnet.subnet1.id
-  #     # untrusted_subnet_id = azurerm_subnet.subnet2.id
-  #   }
-  # }
+    vnet_configuration {
+      virtual_network_id  = azurerm_virtual_network.vnet.id
+      trusted_subnet_id   = azurerm_subnet.subnet1.id
+      untrusted_subnet_id = azurerm_subnet.subnet2.id
+    }
+  }
 }
