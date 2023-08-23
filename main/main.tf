@@ -3,7 +3,7 @@
 # get a ref to our existing vnet
 data "azurerm_virtual_network" "existing_vnet" {
   name                = "TestVnet"
-  resource_group_name = "origintest-67419"
+  resource_group_name = "origintest-19931"
 }
 
 # deploy subnet to our discovered vnet
