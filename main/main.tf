@@ -103,7 +103,7 @@ resource "azurerm_subnet" "subnet2" {
 
 # LOAD BALANCER
 
-resource "azurerm_public_ip" "azpip" {
+resource "azurerm_public_ip" "azlb" {
   allocation_method       = var.allocation_method
   location                = azurerm_resource_group.vnetRG.location
   name                    = local.pip_name
@@ -159,7 +159,7 @@ resource "azurerm_palo_alto_next_generation_firewall_virtual_network_panorama" "
   panorama_base64_config  = "e2RnbmFtZTogY25nZnctYXotZXhhbXBsZSwgdHBsbmFtZTogY25nZnctZXhhbXBsZS10ZW1wbGF0ZS1zdGFjaywgZXhhbXBsZS1wYW5vcmFtYS1zZXJ2ZXI6IDE5Mi4xNjguMC4xLCB2bS1hdXRoLWtleTogMDAwMDAwMDAwMDAwMDAwLCBleHBpcnk6IDIwMjQvMDcvMzF9Cg=="
 
   network_profile {
-    public_ip_address_ids = [azurerm_public_ip.azpip.id]
+    public_ip_address_ids = [azurerm_public_ip.azlb.id]
 
     vnet_configuration {
       virtual_network_id  = azurerm_virtual_network.vnet.id
