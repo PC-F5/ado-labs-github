@@ -9,7 +9,7 @@ data "azurerm_virtual_network" "existing_vnet" {
 # deploy subnet to our discovered vnet
 resource "azurerm_subnet" "subnet3" {
   name                 = "subnet3"
-  resource_group_name  = data.azurerm_resource_group.existing_vnet.name
-  virtual_network_name = data.azurerm_virtual_network.vnet.name
+  resource_group_name  = data.azurerm_virtual_network.existing_vnet.resource_group_name
+  virtual_network_name = data.azurerm_virtual_network.existing_vnet.name
   address_prefixes     = ["99.0.3.0/24"] # Set your desired subnet address range
 }
