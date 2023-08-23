@@ -130,22 +130,22 @@ resource "azurerm_lb" "lb1" {
     owner = "peter.colley"
   }
 
-  # frontend_ip_configuration {
-  #   name                          = var.frontend_name
-  #   private_ip_address            = var.frontend_private_ip_address
-  #   private_ip_address_allocation = var.frontend_private_ip_address_allocation
-  #   private_ip_address_version    = var.frontend_private_ip_address_version
-  #   public_ip_address_id          = 
-  #   subnet_id                     = azurerm_subnet.subnet1.id
-  #   zones                         = var.frontend_ip_zones
-  # }
+  frontend_ip_configuration {
+    name                          = var.frontend_name
+    private_ip_address            = var.frontend_private_ip_address
+    private_ip_address_allocation = var.frontend_private_ip_address_allocation
+    private_ip_address_version    = var.frontend_private_ip_address_version
+    public_ip_address_id          = azurerm_public_ip.azlb.id
+    subnet_id                     = azurerm_subnet.subnet1.id
+    zones                         = var.frontend_ip_zones
+  }
 
-  # lifecycle {
-  #   precondition {
-  #     condition     = var.frontend_subnet_name == null || var.frontend_subnet_name == "" || var.frontend_subnet_id == null || var.frontend_subnet_id == ""
-  #     error_message = "frontend_subnet_name or frontend_vent_name cannot exist if frontend_subnet_id exists."
-  #   }
-  # }
+  lifecycle {
+    precondition {
+      condition     = var.frontend_subnet_name == null || var.frontend_subnet_name == "" || var.frontend_subnet_id == null || var.frontend_subnet_id == ""
+      error_message = "frontend_subnet_name or frontend_vent_name cannot exist if frontend_subnet_id exists."
+    }
+  }
 }
 
 
