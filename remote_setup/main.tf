@@ -67,6 +67,9 @@ resource "azurerm_storage_container" "ct" {
 
 ## GitHub secrets
 
+# we create these manually as there were errors doing it automatically
+# but it only has to be done once
+
 # resource "github_actions_secret" "actions_secret" {
 #   for_each = {
 #     STORAGE_ACCOUNT     = azurerm_storage_account.sa.name
