@@ -177,22 +177,22 @@ resource "azurerm_lb" "lb1" {
 
 # PALO ALTO PAN-OS
 
-# resource "azurerm_palo_alto_next_generation_firewall_virtual_network_panorama" "panos1" {
-#   name                    = "TestPanosFirewall"
-#   resource_group_name     = azurerm_resource_group.vnetRG.name
-#   location                = azurerm_resource_group.vnetRG.location
-#   panorama_base64_config  = "e2RnbmFtZTogY25nZnctYXotZXhhbXBsZSwgdHBsbmFtZTogY25nZnctZXhhbXBsZS10ZW1wbGF0ZS1zdGFjaywgZXhhbXBsZS1wYW5vcmFtYS1zZXJ2ZXI6IDE5Mi4xNjguMC4xLCB2bS1hdXRoLWtleTogMDAwMDAwMDAwMDAwMDAwLCBleHBpcnk6IDIwMjQvMDcvMzF9Cg=="
+resource "azurerm_palo_alto_next_generation_firewall_virtual_network_panorama" "panos1" {
+  name                    = "TestPanosFirewall"
+  resource_group_name     = azurerm_resource_group.vnetRG.name
+  location                = azurerm_resource_group.vnetRG.location
+  panorama_base64_config  = "e2RnbmFtZTogY25nZnctYXotZXhhbXBsZSwgdHBsbmFtZTogY25nZnctZXhhbXBsZS10ZW1wbGF0ZS1zdGFjaywgZXhhbXBsZS1wYW5vcmFtYS1zZXJ2ZXI6IDE5Mi4xNjguMC4xLCB2bS1hdXRoLWtleTogMDAwMDAwMDAwMDAwMDAwLCBleHBpcnk6IDIwMjQvMDcvMzF9Cg=="
 
-#   network_profile {
-#     public_ip_address_ids = [azurerm_public_ip.azlb.id]
+  network_profile {
+    public_ip_address_ids = [azurerm_public_ip.azlb.id]
 
-#     vnet_configuration {
-#       virtual_network_id  = azurerm_virtual_network.vnet.id
-#       trusted_subnet_id   = azurerm_subnet.subnet1.id
-#       untrusted_subnet_id = azurerm_subnet.subnet2.id
-#     }
-#   }
-# }
+    vnet_configuration {
+      virtual_network_id  = azurerm_virtual_network.vnet.id
+      trusted_subnet_id   = azurerm_subnet.subnet1.id
+      untrusted_subnet_id = azurerm_subnet.subnet2.id
+    }
+  }
+}
 
 
 # # get a ref to our existing vnet
